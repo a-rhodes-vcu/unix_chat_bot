@@ -1,0 +1,96 @@
+{"intents": [
+        {"tag": "greeting",
+         "patterns": ["Hi there", "How are you", "Is anyone there?","Hey","Hola", "Hello", "Good day"],
+         "responses": ["Hello", "Good to meet you", "Hi there, how can I help?"],
+         "context": ["intro"]
+        },
+        {"tag": "goodbye",
+         "patterns": ["Bye", "See you later", "Goodbye", "Nice chatting to you, bye", "Till next time"],
+         "responses": ["See you!", "Have a nice day", "Bye!"],
+         "context": ["close"]
+        },
+        {"tag": "thanks",
+         "patterns": ["Thanks", "Thank you", "That's helpful", "Awesome, thanks", "Thanks for helping me"],
+         "responses": ["Happy to help!", "Any time!", "My pleasure"],
+         "context": ["appreciate"]
+        },
+        {"tag": "noanswer",
+         "patterns": [],
+         "responses": ["Sorry, can't understand you", "Please give me more info", "Not sure I understand"],
+         "context": ["nothing"]
+        },
+        {"tag": "options",
+         "patterns": ["How can you help me?", "What can you do?", "What help can you provide?", "How can you be helpful?", "What support is offered"],
+         "responses": ["I can provide unix commands to copy, find, move, delete, or list files/directories", "I can generate unix commands for you to copy, find, move, delete, or list files/directories", "I can generate simple unix commands for you"],
+         "context": ["what_else"]
+        },
+        {"tag": "find word",
+         "patterns": ["find word", "see if word", "search word" ],
+         "responses": ["grep word_of_interest"],
+         "context": ["find"]
+        },
+
+        {"tag": "list word",
+         "patterns": ["list files word", "contain a word", "search for word", "find word" ],
+         "responses": ["grep -l word_of_interest" ],
+         "context": ["list_files"]
+        },
+        {"tag": "copy",
+         "patterns": ["copy a file", "duplicate a file" ],
+         "responses": ["cp original_file_name new_file_name", "cp -r original_folder_name new_folder_name", "cp /path/to/directory/file_name.txt /path/to/new/directory/. ", "rsync original_file_name new_file_name"],
+         "context": ["copy_duplicate_file"]
+        },
+        {"tag": "move",
+         "patterns": ["move a file", "relocate a file" ],
+         "responses": ["mv /path/to/directory/ /path/to/new/directory/."],
+         "context": ["move_put_relocate"]
+        },
+        {"tag": "delete",
+         "patterns": ["delete a file", "remove a file"],
+         "responses": ["rm -v file_name"],
+         "context": ["delete_remove_file"]
+        },
+
+        {"tag": "list files",
+         "patterns": ["all files in a directory", "list files", "see files" ],
+         "responses": ["ls -lat", "ls", "ls -r"],
+         "context": ["list_files"]
+        },
+
+        {"tag": "change",
+         "patterns": ["change folder", "different directory", "move to another folder"],
+         "responses": ["cd /path/to/new/directory/"],
+         "context": ["change"]
+        },
+       {"tag": "back",
+         "patterns": ["back directory", "previous directory", "back another folder"],
+         "responses": ["cd .."],
+         "context": ["back"]
+        },
+       {"tag": "differences",
+         "patterns": ["differences in a file", "difference in files"],
+         "responses": ["diff -c file_1 file_2", "diff file_1 file_2"],
+         "context": ["differences"]
+        },
+        {"tag": "first",
+         "patterns": ["first part of file", "first lines of file"],
+         "responses": ["head file_name", "head -n number_of_lines file_name"],
+         "context": ["first_lines"]
+        },
+        {"tag": "last",
+         "patterns": ["last part of file", "last lines of file"],
+         "responses": ["tail file_name", "tail -n number_of_lines file_name"],
+         "context": ["last_lines"]
+        },
+        {"tag": "view",
+         "patterns": ["see a file", "view file", "see all lines in file"],
+         "responses": ["cat file_name"],
+         "context": ["see_full"]
+        },
+        {"tag": "replace",
+        "patterns": ["replace a word"],
+        "responses": ["sed 's/old_word/new_word/' old_file > new_file"],
+        "context": ["replace"]}
+
+]
+}
