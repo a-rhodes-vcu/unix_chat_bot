@@ -7,7 +7,7 @@ I have always been fascinated in Chatbots and have been wanting to create my own
 
  
 ## Screenshots
-![image_1](https://github.com/a-rhodes-vcu/unix_chat_bot/images/images/ScreenShot.png)
+![image_1](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/images/ScreenShot.png)
 
 ## Tech used
 Python 3.7
