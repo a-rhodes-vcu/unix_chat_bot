@@ -11,7 +11,6 @@ I have always been fascinated in Chatbots and have been wanting to create my own
 
 ## Tech used
 Python 3.7
-PyCharm
 
 <b>Built with</b>
 - [Python](https://www.python.org/)
