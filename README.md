@@ -6,7 +6,7 @@ This bot provides simple unix commanands when prompted by the user. The bot is c
 I have always been fascinated in Chatbots and have been wanting to create my own. I came across a video of Open AI using their API to translate natural language to unix commands. I wanted to replicate this example on my own.   
 
  
-## Screenshots
+## Image
 ![image_1](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/images/ScreenShot.png)
 
 ## Tech used
