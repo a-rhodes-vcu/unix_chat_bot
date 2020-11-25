@@ -7,7 +7,7 @@ I have always been fascinated in Chatbots and have been wanting to create my own
 
  
 ## Screenshots
-Include logo/demo screenshot etc.
+![image_1](https://github.com/a-rhodes-vcu/Appointment_book_interface_with_Angular/blob/master/images/Screen%20Shot%202020-09-07%20at%2011.54.59%20AM.png)
 
 ## Tech used
 Python 3.7
