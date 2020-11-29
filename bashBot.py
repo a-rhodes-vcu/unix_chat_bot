@@ -19,6 +19,7 @@ else:
 
 
 class BuildBotData:
+    
     """ BuildBotData converts the natural language data stored in intents.json and
          turns it into a training set. A model is created using Keras sequential."""
 
