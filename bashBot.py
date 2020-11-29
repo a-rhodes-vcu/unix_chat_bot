@@ -34,7 +34,7 @@ class BuildBotData:
 
         """Process the data and store it in a pickle file."""
 
-        # punkt detects work boundries
+        # punkt detects word boundries
         # wordnet detects lemmas, a unit of meaning
         nltk.download('punkt')
         nltk.download('wordnet')
