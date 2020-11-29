@@ -9,6 +9,24 @@ I have always been fascinated in Chatbots and have been wanting to create my own
 ![image_1](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/images/ScreenShot.png)
 
 ## Code walkthrough
+The intents.json file contains key/value pairs of what the user could say to the chatbot (patterns), what the chatbot would say back to the user (responses), a word that groups the intent of the user (tag) and the context of the interaction. 
+```
+{"intents": [
+        {"tag": "greeting",
+         "patterns": ["Hi there", "How are you", "Is anyone there?","Hey","Hola", "Hello", "Good day"],
+         "responses": ["Hello", "Good to meet you", "Hi there, how can I help?"],
+         "context": ["intro"]
+        },
+        {"tag": "goodbye",
+         "patterns": ["Bye", "See you later", "Goodbye", "Nice chatting to you, bye", "Till next time"],
+         "responses": ["See you!", "Have a nice day", "Bye!"],
+         "context": ["close"]
+        },
+
+
+```
+In bashBot.py, the first step is to initialize objects being used
+
 ```
 class BuildBotData:
     
@@ -24,7 +42,7 @@ class BuildBotData:
         self.lemmatizer = WordNetLemmatizer()
 
 ```
-Starting on line 38 of bashBot.py, the first step is to download two nltk coprus'. The first one being 'punkt' which divdes text into a list of sentences and the second is wordnet, which can detect lemmas - a base unit of a word or a unit of meaning. The next step is to create a list of things we would like to ignore and then open and read the intents.json file.
+Starting on line 38 of bashBot.py two nltk coprus' are downloaded. The first one being 'punkt' which divdes text into a list of sentences and the second one is wordnet, which can detect lemmas - a base unit of a word/unit of meaning. The next step is to create a list of things we would like to ignore and then open and read the intents.json file.
 
 ```
        def process_data(self):
@@ -39,8 +57,8 @@ Starting on line 38 of bashBot.py, the first step is to download two nltk coprus
         data_file = open('intents.json').read()
         intents = json.loads(data_file)
 ```
-
-Now it's time to create the pickle files. First iterate through the outer key of the json file, 'intents' then the inner key, 'patterns'. The 'patterns' contain sentences that the user might say to the chatbot. The patterns are then tokenized or split apart and converted into a list of words. The list is then added to a previously created list 
+Now it's time to break down the intents.json file, prepare the data and create pickle files. 
+First iterate through the outer key of the json file, 'intents' then the inner key, 'patterns'. The patterns are then tokenized or split apart and converted into a list of words. The list is then added to the word list. Then a tuple containing the tokenized pattern along with it's tag is appended to the documents list and the tag is appended to the classes' list. Now that we have the tokenized list of words, I can convert them all to lower case, remove any words that are in the ignore list and find the lemma of each word. Last but not least, create a set of each list (remove duplicates) and sort each list. Finially, it's time to dump the lists into pickle files.
 
 ```
   for intent in intents['intents']:
