@@ -25,7 +25,7 @@ The [intents.json](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/inten
 
 
 ```
-In bashBot.py, the first step is to initialize objects being used
+In bashBot.py, the first step is to initialize the attributes of the BuildBotData class
 
 ```
 class BuildBotData:
@@ -58,7 +58,7 @@ Starting on line 38 of bashBot.py two nltk coprus' are downloaded. The first one
         intents = json.loads(data_file)
 ```
 Now it's time to break down the intents.json file, prepare the data and create pickle files. 
-First iterate through the outer key of the json file, 'intents' then the inner key, 'patterns'. The patterns are then tokenized or split apart and converted into a list of words. The list is then added to the word list. Then a tuple containing the tokenized pattern along with it's tag is appended to the documents list and the tag is appended to the classes' list. Now that we have the tokenized list of words, I can convert them all to lower case, remove any words that are in the ignore list and find the lemma of each word. Last but not least, create a set of each list (remove duplicates) and sort each list. Finially, it's time to dump the lists into pickle files.
+First iterate through the outer key and inner key of the json file: 'intents' and 'patterns'. The patterns are then tokenized or split apart and converted into a list of words. The list is then extended to the word list. Then a tuple containing the tokenized pattern along with it's tag is appended to the documents list and the tag is appended to the classes' list. Now that we have the tokenized list of words, I can convert them all to lower case, skip any words that are in the ignore list and find the lemma of each word. Last but not least, create a set of each list (remove duplicates) and sort each list. Finially, it's time to dump the lists into pickle files.
 
 ```
   for intent in intents['intents']:
@@ -82,6 +82,43 @@ First iterate through the outer key of the json file, 'intents' then the inner k
         self.classes = sorted(list(set(self.classes)))
         pickle.dump(self.words, open('words.pkl', 'wb'))
         pickle.dump(self.classes, open('classes.pkl', 'wb'))
+```
+Now it's time to create the inputs for the neural network. First thing to so is create an empty training list and an array of zeros the same length of the classes list. This array of zeros is the first part in creating the output list. Next thing to do is iterate through documents which contains a tuple of tuples. First item in the tuple is the tokenized pattern words and second item is the tag. The lemma is then found for each pattern word. Next, the bag of words can be made by iterating through the words list and if the word is in pattern words append a 1, else append 0. For every iteration output_row will start as a list of nothing but zeros, if the current tag in the loop is in the classes list change a 0 to a 1. The output row and and bag of words is appeneded to the training list. The training list is then shuffled and turned into a numpy array.
+```
+    def build_model(self):
+
+        """ Use the lists created in process_data to create a nested list that contains
+          the bag of words and output row. """
+
+        self.training = []
+        output_empty = [0] * len(self.classes)
+        for doc in self.documents:
+
+            # bag of words stores features from the patterns
+            bag_of_words = []
+
+            # extract items from tuple
+            pattern_words, tag = doc[0], doc[1]
+
+            # lemmatize each word - create base word, in attempt to represent related words
+            pattern_words = [self.lemmatizer.lemmatize(word.lower()) for word in pattern_words]
+
+            # append to bag of words array with 1, if word match found in current pattern
+            for w in self.words:
+                bag_of_words.append(1) if w in pattern_words else bag_of_words.append(0)
+
+            # output is a '0' for each tag and '1' for current tag (for each pattern)
+            # if the tag in the doc list, is present in the index of the classes list, assign a 1
+            output_row = list(output_empty)
+            output_row[self.classes.index(tag)] = 1
+
+            self.training.append([bag_of_words, output_row])
+
+        # shuffle our features and turn into np.array
+        random.shuffle(self.training)
+        # create a grid of values where the first grid is the bag of words
+        self.training = np.array(self.training)
+
 ```
 
 ## Tech used
