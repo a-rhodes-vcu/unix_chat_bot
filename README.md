@@ -83,7 +83,7 @@ First iterate through the outer key and inner key of the json file: 'intents' an
         pickle.dump(self.words, open('words.pkl', 'wb'))
         pickle.dump(self.classes, open('classes.pkl', 'wb'))
 ```
-Now it's time to create the inputs for the neural network. First thing to so is create an empty training list and an array of zeros the same length of the classes list. This array of zeros is the first part in creating the output list. Next thing to do is iterate through documents which contains a tuple of tuples. First item in the tuple is the tokenized pattern words and second item is the tag. The lemma is then found for each pattern word and turned into lower case. 
+Now it's time to create the inputs for the neural network. First thing to so is create an empty training list. Next thing to do is iterate through documents which contains a tuple of tuples. First item in the tuple is the tokenized pattern words and second item is the tag. The lemma is then found for each pattern word and turned into lower case. 
 ```
     def build_model(self):
 
@@ -91,7 +91,6 @@ Now it's time to create the inputs for the neural network. First thing to so is 
           the bag of words and output row. """
 
         self.training = []
-        output_empty = [0] * len(self.classes)
         for doc in self.documents:
 
             # bag of words stores features from the patterns
@@ -109,11 +108,11 @@ Next, the bag of words can be made by iterating through the words list using an 
             for w in self.words:
                 bag_of_words.append(1) if w in pattern_words else bag_of_words.append(0)
 ```
-For every iteration output_row will start as a list of nothing but zeros, when the current tag in the loop matches the tag found in the classes list, replace the 0 with a 1 at that index. The output row and and bag of words is appeneded to the training list. The training list is then shuffled and turned into a numpy array.
+For every iteration output_row will start as a list of nothing but zeros that is the same size as the classes list, when the current tag in the loop matches the tag found in the classes list, replace the 0 with a 1 at that index. The output row and and bag of words is appeneded to the training list. The training list is then shuffled and turned into a numpy array.
 ```
             # output is a '0' for each tag and '1' for current tag (for each pattern)
             # if the tag in the doc list, is present in the index of the classes list, assign a 1
-            output_row = list(output_empty)
+            output_row = [0] * len(self.classes)
             output_row[self.classes.index(tag)] = 1
 
             self.training.append([bag_of_words, output_row])
