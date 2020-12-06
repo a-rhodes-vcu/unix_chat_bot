@@ -1,5 +1,5 @@
 # Unix Chatbot
-This bot provides simple unix commanands when prompted by the user. The bot is capable of providing commands to list files, view contents of files and replace words in a file. It can also help with commands to copy, move and delete a file. 
+This bot provides simple unix commands when prompted by the user. The bot is capable of providing commands to list files, view contents of files and replace words in a file. It can also help with commands to copy, move and delete a file. 
 
 
 ## Motivation
