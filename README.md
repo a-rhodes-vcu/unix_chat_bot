@@ -25,7 +25,7 @@ The [intents.json](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/inten
 
 
 ```
-In bashBot.py, the first step is to initialize the attributes of the BuildBotData class
+In [bashBot.py](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/bashBot.py), the first step is to initialize the attributes of the BuildBotData class
 
 ```
 class BuildBotData:
