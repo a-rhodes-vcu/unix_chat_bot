@@ -51,7 +51,6 @@ def predict_class(sentence, model):
 
 
 def getResponse(ints, intents_json):
-
     tag = ints[0]['intent']
     list_of_intents = intents_json['intents']
     for i in list_of_intents:
@@ -63,16 +62,23 @@ def getResponse(ints, intents_json):
 
 
 def chatbot_response(msg):
+    
+    """msg is the input from the user. that is passed into predict class, which predicts the intent of the request
+    ints is then passed into getResponse which is the reponse from the chat bot"""
     ints = predict_class(msg, model)
     res = getResponse(ints, intents)
     return res
 
 @app.route("/")
 def index():
+    
+    """render the html and css"""
     return render_template("index.html")
 
 @app.route("/get")
 def get_bot_response():
+    
+    """ this function takes user input and then returns the bot response """
     msg = request.args.get("msg")  # get data from input
     res = chatbot_response(msg)
     print(res)
