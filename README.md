@@ -5,7 +5,7 @@ This bot provides simple unix commands when prompted by the user. The bot is cap
 ## Motivation
 I have always been fascinated by Chatbots and have been wanting to create my own. I came across a video of Open AI using their API to translate natural language to unix commands([english_to_bash](https://cdn.openai.com/API/English_Bash_Python.mp4)) and I wanted to try to build a more simplified version of this using Python's data science took kit.
  
-## Image
+## Finished Product
 ![image_1](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/images/ScreenShot.png)
 
 ## Code walkthrough
@@ -42,7 +42,7 @@ class BuildBotData:
         self.lemmatizer = WordNetLemmatizer()
 
 ```
-Starting on line 38 of bashBot.py two nltk coprus' are downloaded. The first one being 'punkt' which divdes text into a list of sentences and the second one is wordnet, which can detect lemmas - a base unit of a word/unit of meaning. The next step is to create a list of things we would like to ignore and then open and read the intents.json file.
+Two nltk coprus' are downloaded. The first one being 'punkt' which divdes text into a list of sentences and the second one is wordnet, which can detect lemmas - a base unit of a word/unit of meaning. The next step is to create a list of things we would like to ignore and then open and read the intents.json file.
 
 ```
       def process_data(self):
@@ -122,9 +122,13 @@ For every iteration output will start as a list of nothing but zeros that is the
         # create a grid of values where the first grid is the bag of words
         self.training = np.array(self.training)
 ```
-Finally to the neural network! The neural network has three layers, first layer contains 128 neurons, second layer has 64 neurons and last layer contains the same amount of neurons as the length of train_y. This is considered a deep neural network because it contains multiple layers.
+Finally to the neural network! The neural network has three layers, first layer contains 128 neurons, second layer has 64 neurons and last layer contains the same amount of neurons as the length of train_y. The neural network is trained, compiled and then fitted. The model is saved to a .h5 file which is used by the flask app.
 ```
     def create_model(self):
+    
+        """Use bag of words list and output list from build_model to create model, train, compile and fit. 
+        model is saved in a .h5 file. """
+        
         # gather lists from np.array to train and test
         # bag of words
         train_x = list(self.training[:, 0])
@@ -148,17 +152,6 @@ Finally to the neural network! The neural network has three layers, first layer 
         # third output layer has the number of neurons equal to the number of tags
         # softmax is the default activation function for the third later
         model.add(Dense(len(train_y[0]), activation='softmax'))
-
-        # Compile model using SGD optimizer and cross-entropy.
-        sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
-        model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
-
-        # fit and save the model
-        hist = model.fit(np.array(train_x), np.array(train_y), epochs=200, batch_size=5, verbose=2)
-        model.save('chatbot_model.h5', hist)
-
-        print("model created")
-
 ```
 
 ## Tech used
