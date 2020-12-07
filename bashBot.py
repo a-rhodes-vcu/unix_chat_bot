@@ -97,7 +97,10 @@ class BuildBotData:
         self.training = np.array(self.training)
 
     def create_model(self):
-        # gather lists from np.array to train and test
+        
+        """Use bag of words list and output list from build_model to create model, train, compile and fit.
+        model is saved in a .h5 file. """
+        
         # bag of words
         train_x = list(self.training[:, 0])
         # output row
