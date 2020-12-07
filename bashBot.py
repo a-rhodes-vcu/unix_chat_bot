@@ -83,7 +83,7 @@ class BuildBotData:
             for w in self.words:
                 bag_of_words.append(1) if w in pattern_words else bag_of_words.append(0)
 
-            # in every iteration of for loop create list of empty zeros same size of classes list
+            # in every iteration of the for loop create list of empty zeros same size of classes list
             output = [0] * len(self.classes)
             # for the current tag in the loop change 0 to 1
             output[self.classes.index(tag)] = 1
