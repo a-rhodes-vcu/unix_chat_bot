@@ -3,7 +3,7 @@ This bot provides simple unix commands when prompted by the user. The bot is cap
 
 
 ## Motivation
-I have always been fascinated by Chatbots and have been wanting to create my own. I came across a video of Open AI using their API to translate natural language to unix commands and I wanted to try to build a more simplified version of this using Python's data science took kit.
+I have always been fascinated by Chatbots and have been wanting to create my own. I came across a video of Open AI using their API to translate natural language to unix commands([english_to_bash](https://cdn.openai.com/API/English_Bash_Python.mp4)) and I wanted to try to build a more simplified version of this using Python's data science took kit.
  
 ## Image
 ![image_1](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/images/ScreenShot.png)
