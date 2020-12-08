@@ -36,7 +36,6 @@ In [bashBot.py](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/bashBot.
 ```
 Now it's time to break down the intents.json file, prepare the data and create pickle files. 
 First iterate through the outer key and inner key of the json file: 'intents' and 'patterns'. The patterns are then tokenized or split apart and converted into a list of words. The list is then extended to the word list. Then a tuple containing the tokenized pattern along with it's tag is appended to the documents list and the tag is appended to the classes' list. Now that we have the tokenized list of words, I can convert them all to lower case, skip any words that are in the stop list and find the lemma of each word. Last but not least, create a set of each list (remove duplicates) and sort each list. Finially, it's time to dump the lists into pickle files.
-
 ```
   for intent in intents['intents']:
             for pattern in intent['patterns']:
@@ -55,12 +54,15 @@ First iterate through the outer key and inner key of the json file: 'intents' an
         # if not in the ignore list, lemmatize words from the tokenized sentences and turn everything to lower case
         self.words = [self.lemmatizer.lemmatize(w.lower()) for w in self.words if w not in stop]
 
+        # store in lists so the model can be created
         self.words = sorted(list(set(self.words)))
         self.classes = sorted(list(set(self.classes)))
+
+        # create pickle files so intents.json doesn't have to be processed every time input comes form the user
         pickle.dump(self.words, open('words.pkl', 'wb'))
         pickle.dump(self.classes, open('classes.pkl', 'wb'))
 ```
-build_model creates the inputs for the neural network. First thing to so is create an empty training list. Next thing to do is iterate through documents which contains a tuple of tuples. First item in the tuple is the tokenized pattern words and second item is the tag. The lemma is then found for each pattern word and turned into lower case. 
+build_model creates the inputs for the neural network. I iterate through documents which contains a tuple of tuples. First item in the tuple is the tokenized pattern words and second item is the tag. The lemma is then found for each pattern word and turned into lower case. 
 ```
    def build_model(self):
 
