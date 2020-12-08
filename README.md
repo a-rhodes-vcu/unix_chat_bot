@@ -132,7 +132,7 @@ Finally to the neural network! The neural network has three layers, first layer 
 ```
 
 ## Tech used
-Python 3.7
-- [Python](https://www.python.org/)
+[Python](https://www.python.org/) 3.7
+
 
 
