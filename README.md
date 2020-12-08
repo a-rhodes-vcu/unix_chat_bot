@@ -154,5 +154,13 @@ def get_bot_response():
     return str(res)
 ```
 
+##
+1. The json file was limited to just a few possible unix commands that could be returned to the user, so adding more would greatly improve the versatility of the chatbot.
+2. The sequential neural network implenmented for this is pretty simple. It would be interesting to see how a recurrent neural network impacts the user experience.
+3. The HTML/CSS leaves a lot to be desired. Adding more styling to make the chatbot more user friendly would be an added bonus.
+
 ## Tech used
 [Python](https://www.python.org/) 3.7
+
+
+<h5>If you made it to the end, thanks for reading! Feel free to reach out for questions or suggesstions! This was such a fun project to work on and I look forward to more future NLP/neural network projects.</h5>
