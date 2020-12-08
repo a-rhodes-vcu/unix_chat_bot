@@ -10,6 +10,10 @@ Hosted on heroku: https://unix-chat-bot.herokuapp.com
 ![image_1](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/images/ScreenShot.png)
 
 ## Code walkthrough
+*[flaskChatBot.py](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/flaskChatBot.py)
+*[intents.json](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/intents.json)
+*[bashBot.py](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/bashBot.py)
+
 The [intents.json](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/intents.json) file contains key/value pairs of what the user could say to the chatbot (patterns), what the chatbot would say back to the user (responses), a word that groups the intent of the user (tag) and the context of the interaction. 
 ```
 {"intents": [
@@ -26,7 +30,7 @@ In [bashBot.py](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/bashBot.
 
         """Process the data and store it in a pickle file."""
 
-        # punkt detects sentence boundies
+        # punkt detects sentence boundaries
         # wordnet detects lemmas, a unit of meaning
         nltk.download('punkt')
         nltk.download('wordnet')
@@ -35,7 +39,7 @@ In [bashBot.py](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/bashBot.
         intents = json.loads(data_file)
 ```
 Now it's time to break down the intents.json file, prepare the data and create pickle files. 
-First iterate through the outer key and inner key of the json file: 'intents' and 'patterns'. The patterns are then tokenized or split apart and converted into a list of words. The list is then extended to the word list. Then a tuple containing the tokenized pattern along with it's tag is appended to the documents list and the tag is appended to the classes' list. Now that we have the tokenized list of words, I can convert them all to lower case, skip any words that are in the stop list and find the lemma of each word. Last but not least, create a set of each list (remove duplicates) and sort each list. Finially, it's time to dump the lists into pickle files.
+First iterate through the outer key and inner key of the json file: 'intents' and 'patterns'. The patterns are then tokenized or split apart and converted into a list of words. The list is then extended to the word list. Then a tuple containing the tokenized pattern along with it's tag is appended to the documents list and the tag is appended to the classes' list. Now that we have the tokenized list of words, I can convert them all to lower case, skip any words that are in the stop list and find the lemma of each word. Last but not least, create a set of each list (remove duplicates) and sort each list. Finally, it's time to dump the lists into pickle files.
 ```
   for intent in intents['intents']:
             for pattern in intent['patterns']:
@@ -86,7 +90,7 @@ Next, the bag of words can be made by iterating through the words list using an 
             for w in self.words:
                 bag_of_words.append(1) if w in pattern_words else bag_of_words.append(0)
 ```
-For every iteration output will start as a list of nothing but zeros that is the same size as the classes list, when the current tag in the loop matches the tag found in the classes list, replace the 0 with a 1 at that index. The output row and bag of words is appeneded to the training list. The training list is then shuffled and turned into a numpy array.
+For every iteration output will start as a list of nothing but zeros that is the same size as the classes list, when the current tag in the loop matches the tag found in the classes list, replace the 0 with a 1 at that index. The output row and bag of words is appended to the training list. The training list is then shuffled and turned into a numpy array.
 ```
             # in every iteration of the for loop create list of empty zeros same size of classes list
             output = [0] * len(self.classes)
@@ -132,9 +136,18 @@ Finally to the neural network! The neural network has three layers, first layer 
         # softmax is the default activation function for the third later
         model.add(Dense(len(train_y[0]), activation='softmax'))
 ```
+Last but not least, the flask app!
+msg is the user input, which is tokenized and then turned into a bag of words. The bag of words is fed into the model and a list of probabilities is returned. The highest probability for the tag is then used to return the chat bot response.
+```
+@app.route("/get")
+def get_bot_response():
+
+    """receive messages from the user and return messages from the bot"""
+
+    msg = request.args.get("msg")  # get data from input
+    res = chatbot_response(msg)
+    return str(res)
+```
 
 ## Tech used
 [Python](https://www.python.org/) 3.7
-
-
-
