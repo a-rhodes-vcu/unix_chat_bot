@@ -11,6 +11,7 @@ Hosted on heroku: https://unix-chat-bot.herokuapp.com
 
 ## Code walkthrough
 Programs used:
+<br>
 [flaskChatBot.py](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/flaskChatBot.py)
 <br>
 [intents.json](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/intents.json)
