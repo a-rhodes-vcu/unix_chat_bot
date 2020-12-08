@@ -141,7 +141,7 @@ Finally to the neural network! The neural network has three layers, first layer 
         # softmax is the default activation function for the third later
         model.add(Dense(len(train_y[0]), activation='softmax'))
 ```
-Last but not least, the flask app!
+Last but not least, the flask app! [flaskChatBot.py](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/flaskChatBot.py)
 msg is the user input, which is tokenized and then turned into a bag of words. The bag of words is fed into the model and a list of probabilities is returned. The highest probability for the tag is then used to return the chat bot response.
 ```
 @app.route("/get")
