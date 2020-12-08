@@ -10,9 +10,13 @@ Hosted on heroku: https://unix-chat-bot.herokuapp.com
 ![image_1](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/images/ScreenShot.png)
 
 ## Code walkthrough
-1.[flaskChatBot.py](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/flaskChatBot.py)
-1.[intents.json](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/intents.json)
-1.[bashBot.py](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/bashBot.py)
+Programs used:
+[flaskChatBot.py](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/flaskChatBot.py)
+<br>
+[intents.json](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/intents.json)
+<br>
+[bashBot.py](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/bashBot.py)
+<br>
 
 The [intents.json](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/intents.json) file contains key/value pairs of what the user could say to the chatbot (patterns), what the chatbot would say back to the user (responses), a word that groups the intent of the user (tag) and the context of the interaction. 
 ```
