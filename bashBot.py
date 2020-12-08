@@ -58,8 +58,11 @@ class BuildBotData:
         # if not in the ignore list, lemmatize words from the tokenized sentences and turn everything to lower case
         self.words = [self.lemmatizer.lemmatize(w.lower()) for w in self.words if w not in stop]
 
+        # store in lists so the model can be created
         self.words = sorted(list(set(self.words)))
         self.classes = sorted(list(set(self.classes)))
+
+        # create pickle files so intents.json doesn't have to be processed every time input comes form the user
         pickle.dump(self.words, open('words.pkl', 'wb'))
         pickle.dump(self.classes, open('classes.pkl', 'wb'))
 
