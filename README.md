@@ -6,6 +6,7 @@ This bot provides simple unix commands when prompted by the user. The bot is cap
 I have always been fascinated by Chatbots and have been wanting to create my own. I came across a video of Open AI using their API to translate natural language to unix commands([english_to_bash](https://cdn.openai.com/API/English_Bash_Python.mp4)) and I wanted to try to build a more simplified version of this using Python's data science took kit.
  
 ## Finished Product
+Hosted on heroku: https://unix-chat-bot.herokuapp.com
 ![image_1](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/images/ScreenShot.png)
 
 ## Code walkthrough
@@ -16,33 +17,9 @@ The [intents.json](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/inten
          "patterns": ["Hi there", "How are you", "Is anyone there?","Hey","Hola", "Hello", "Good day"],
          "responses": ["Hello", "Good to meet you", "Hi there, how can I help?"],
          "context": ["intro"]
-        },
-        {"tag": "goodbye",
-         "patterns": ["Bye", "See you later", "Goodbye", "Nice chatting to you, bye", "Till next time"],
-         "responses": ["See you!", "Have a nice day", "Bye!"],
-         "context": ["close"]
-        },
-
-
+      
 ```
-In [bashBot.py](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/bashBot.py), the first step is to initialize the attributes of the BuildBotData class
-
-```
-class BuildBotData:
-    
-    """ BuildBotData converts the natural language data stored in intents.json and
-         turns it into a training set. A model is created using Keras sequential."""
-
-    def __init__(self):
-
-        self.words = []
-        self.classes = []
-        self.documents = []
-        self.training = []
-        self.lemmatizer = WordNetLemmatizer()
-
-```
-Two nltk coprus' are downloaded. The first one being 'punkt' which divdes text into a list of sentences and the second one is wordnet, which can detect lemmas - a base unit of a word/unit of meaning. The next step is to create a list of things we would like to ignore and then open and read the intents.json file.
+In [bashBot.py](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/bashBot.py),two nltk coprus' are downloaded. The first one being 'punkt' which divdes text into a list of sentences and the second one is wordnet, which can detect lemmas - a base unit of a word/unit of meaning. The next step is to create a list of things we would like to ignore and then open and read the intents.json file.
 
 ```
       def process_data(self):
@@ -83,7 +60,7 @@ First iterate through the outer key and inner key of the json file: 'intents' an
         pickle.dump(self.words, open('words.pkl', 'wb'))
         pickle.dump(self.classes, open('classes.pkl', 'wb'))
 ```
-Now it's time to create the inputs for the neural network. First thing to so is create an empty training list. Next thing to do is iterate through documents which contains a tuple of tuples. First item in the tuple is the tokenized pattern words and second item is the tag. The lemma is then found for each pattern word and turned into lower case. 
+build_model creates the inputs for the neural network. First thing to so is create an empty training list. Next thing to do is iterate through documents which contains a tuple of tuples. First item in the tuple is the tokenized pattern words and second item is the tag. The lemma is then found for each pattern word and turned into lower case. 
 ```
    def build_model(self):
 
@@ -155,7 +132,56 @@ Finally to the neural network! The neural network has three layers, first layer 
 ```
 
 ## Tech used
-Python 3.7
+Python==3.7
+absl-py==0.11.0
+astunparse==1.6.3
+cached-property==1.5.2
+cachetools==4.1.1
+certifi==2020.11.8
+chardet==3.0.4
+click==7.1.2
+Flask==1.1.2
+gast==0.3.3
+google-auth==1.23.0
+google-auth-oauthlib==0.4.2
+google-pasta==0.2.0
+grpcio==1.33.2
+gunicorn==20.0.4
+h5py==2.10.0
+idna==2.10
+importlib-metadata==2.0.0
+itsdangerous==1.1.0
+Jinja2==2.11.2
+joblib==0.17.0
+Keras==2.4.3
+Keras-Preprocessing==1.1.2
+Markdown==3.3.3
+MarkupSafe==1.1.1
+nltk==3.5
+numpy==1.18.5
+oauthlib==3.1.0
+opt-einsum==3.3.0
+protobuf==3.13.0
+pyasn1==0.4.8
+pyasn1-modules==0.2.8
+PyYAML==5.3.1
+regex==2020.11.13
+requests==2.25.0
+requests-oauthlib==1.3.0
+rsa==4.6
+scipy==1.5.4
+six==1.15.0
+tensorboard==2.4.0
+tensorboard-plugin-wit==1.7.0
+tensorflow==2.3.1
+tensorflow-estimator==2.3.0
+termcolor==1.1.0
+tqdm==4.51.0
+urllib3==1.26.2
+Werkzeug==1.0.1
+wrapt==1.12.1
+zipp==3.4.0
+
 
 <b>Built with</b>
 - [Python](https://www.python.org/)
