@@ -112,7 +112,7 @@ For every iteration output will start as a list of nothing but zeros that is the
         # create a grid of values where the first grid is the bag of words
         self.training = np.array(self.training)
 ```
-Finally to the neural network! The neural network has three layers, first layer contains 128 neurons, second layer has 64 neurons and last layer contains the same amount of neurons as the length of train_y. The neural network is trained, compiled and then fitted. The model is saved to a .h5 file which is used by the flask app.
+Finally to the neural network! The neural network has three layers, first layer contains 128 neurons, second layer has 64 neurons and last layer contains the same amount of neurons as the length of train_y. The neural network is trained, compiled and then fitted. The model is saved as chatbot_model.h5 which is used by the flask app.
 ```
     def create_model(self):
     
@@ -144,7 +144,7 @@ Finally to the neural network! The neural network has three layers, first layer 
         model.add(Dense(len(train_y[0]), activation='softmax'))
 ```
 Last but not least, the [flask app](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/flaskChatBot.py)! 
-The .pkl files and .h5 file from bashBot are imported into the flask app. msg is the user input, which is tokenized and then turned into a bag of words. The bag of words is fed into the model and a list of probabilities is returned. The highest probability for the tag is then used to return the chat bot response.
+The .pkl files and chatbot_model.h5 file from bashBot are imported into the flask app. msg is the user input, which is tokenized and then turned into a bag of words using the loaded in .pkl files. The bag of words is fed into the model (the chatbot_model.h5 file) and a list of probabilities is returned. The highest probability for the tag is then used to return the chat bot response.
 ```
 @app.route("/get")
 def get_bot_response():
