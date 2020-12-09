@@ -9,6 +9,8 @@ I have always been fascinated by Chatbots and have been wanting to create my own
 Hosted on heroku: https://unix-chat-bot.herokuapp.com
 ![image_1](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/images/ScreenShot.png)
 
+To run in your local enviorment have an intents.json file, run bashBot.py to create the .pkl files and .h5 file. After the files are made run flaskChatBot.py
+
 ## Code walkthrough
 Programs used:
 <br>
