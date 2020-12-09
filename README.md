@@ -141,8 +141,8 @@ Finally to the neural network! The neural network has three layers, first layer 
         # softmax is the default activation function for the third later
         model.add(Dense(len(train_y[0]), activation='softmax'))
 ```
-Last but not least, the [flask app](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/flaskChatBot.py)!
-msg is the user input, which is tokenized and then turned into a bag of words. The bag of words is fed into the model and a list of probabilities is returned. The highest probability for the tag is then used to return the chat bot response.
+Last but not least, the [flask app](https://github.com/a-rhodes-vcu/unix_chat_bot/blob/main/flaskChatBot.py)! 
+The .pkl files and .h5 file from bashBot are imported into the flask app. msg is the user input, which is tokenized and then turned into a bag of words. The bag of words is fed into the model and a list of probabilities is returned. The highest probability for the tag is then used to return the chat bot response.
 ```
 @app.route("/get")
 def get_bot_response():
@@ -163,4 +163,4 @@ def get_bot_response():
 [Python](https://www.python.org/) 3.7
 
 
-<h5>If you made it to the end, thanks for reading! Feel free to reach out for questions or suggesstions! This was such a fun project to work on and I look forward to more future NLP/neural network projects.</h5>
+<h6>If you made it to the end, thanks for reading! Feel free to reach out for questions or suggesstions! This was such a fun project to work on and I look forward to more future NLP/neural network projects.</h6>
